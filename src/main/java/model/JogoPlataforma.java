@@ -12,11 +12,11 @@ public class JogoPlataforma {
     private BigDecimal precoDiario;
 
     @ManyToOne
-    @JoinColumn(name = "jogo_id")
+    @JoinColumn(name = "jogo_id", insertable = false, updatable = false)
     private Jogo jogo;
 
     @ManyToOne
-    @JoinColumn(name = "plataforma_id")
+    @JoinColumn(name = "plataforma_id", insertable = false, updatable = false)
     private Plataforma plataforma;
 
     public JogoPlataformaId getJogoPlataformaId() {
