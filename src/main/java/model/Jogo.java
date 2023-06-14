@@ -38,4 +38,5 @@ public class Jogo {
     public void setJogoPlataformas(List<JogoPlataforma> jogoPlataformas) {
         this.jogoPlataformas = jogoPlataformas;
     }
+
 }

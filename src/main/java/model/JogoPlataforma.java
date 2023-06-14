@@ -2,37 +2,35 @@ package model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class JogoPlataforma {
 
-    @EmbeddedId
-    private JogoPlataformaId jogoPlataformaId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "jogo_id")
+    private Jogo jogo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plataforma_id")
+    private Plataforma plataforma;
+
+    @OneToMany(mappedBy = "locacao")
+    private List<ItemLocacao> itensLocacao = new ArrayList<>();
 
     private BigDecimal precoDiario;
 
-    @ManyToOne
-    @JoinColumn(name = "jogo_id", insertable = false, updatable = false)
-    private Jogo jogo;
-
-    @ManyToOne
-    @JoinColumn(name = "plataforma_id", insertable = false, updatable = false)
-    private Plataforma plataforma;
-
-    public JogoPlataformaId getJogoPlataformaId() {
-        return jogoPlataformaId;
+    public Long getId() {
+        return id;
     }
 
-    public void setJogoPlataformaId(JogoPlataformaId jogoPlataformaId) {
-        this.jogoPlataformaId = jogoPlataformaId;
-    }
-
-    public BigDecimal getPrecoDiario() {
-        return precoDiario;
-    }
-
-    public void setPrecoDiario(BigDecimal precoDiario) {
-        this.precoDiario = precoDiario;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Jogo getJogo() {
@@ -50,4 +48,21 @@ public class JogoPlataforma {
     public void setPlataforma(Plataforma plataforma) {
         this.plataforma = plataforma;
     }
+
+    public BigDecimal getPrecoDiario() {
+        return precoDiario;
+    }
+
+    public void setPrecoDiario(BigDecimal precoDiario) {
+        this.precoDiario = precoDiario;
+    }
+
+    public List<ItemLocacao> getItensLocacao() {
+        return itensLocacao;
+    }
+
+    public void setItensLocacao(List<ItemLocacao> itensLocacao) {
+        this.itensLocacao = itensLocacao;
+    }
+
 }

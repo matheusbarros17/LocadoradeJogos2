@@ -1,7 +1,12 @@
 package model;
 
+import model.repository.CalculadoraPrecoLocacao;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Locacao {
@@ -12,6 +17,9 @@ public class Locacao {
 
     @ManyToOne
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "locacao")
+    private List<ItemLocacao> itensLocacao = new ArrayList<>();
 
     private LocalDate dataLocacao;
 
@@ -37,5 +45,18 @@ public class Locacao {
 
     public void setDataLocacao(LocalDate dataLocacao) {
         this.dataLocacao = dataLocacao;
+    }
+
+    public List<ItemLocacao> getItensLocacao() {
+        return itensLocacao;
+    }
+
+    public void setItensLocacao(List<ItemLocacao> itensLocacao) {
+        this.itensLocacao = itensLocacao;
+    }
+
+    public void addItemLocacao(ItemLocacao itemLocacao) {
+        itensLocacao.add(itemLocacao);
+        itemLocacao.setLocacao(this);
     }
 }

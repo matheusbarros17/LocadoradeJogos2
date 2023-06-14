@@ -12,7 +12,7 @@ public class Console {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private BigDecimal precoPorHoraBigDecimal;
+    private BigDecimal precoPorHora;
 
     @OneToMany(mappedBy = "console")
     private List<UtilizacaoDoConsolePeloCliente> utilizacoes = new ArrayList<>();
@@ -36,12 +36,12 @@ public class Console {
         this.nome = nome;
     }
 
-    public BigDecimal getPrecoPorHoraBigDecimal() {
-        return precoPorHoraBigDecimal;
+    public BigDecimal getPrecoPorHora() {
+        return precoPorHora;
     }
 
-    public void setPrecoPorHoraBigDecimal(BigDecimal precoPorHoraBigDecimal) {
-        this.precoPorHoraBigDecimal = precoPorHoraBigDecimal;
+    public void setPrecoPorHora(BigDecimal precoPorHora) {
+        this.precoPorHora = precoPorHora;
     }
 
     public List<UtilizacaoDoConsolePeloCliente> getUtilizacoes() {

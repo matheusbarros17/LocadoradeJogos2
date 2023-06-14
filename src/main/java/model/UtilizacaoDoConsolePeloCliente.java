@@ -1,7 +1,11 @@
 package model;
 
+import model.repository.CalculadoraValorLocacao;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class UtilizacaoDoConsolePeloCliente {
@@ -16,8 +20,12 @@ public class UtilizacaoDoConsolePeloCliente {
     @ManyToOne
     private Console console;
 
-    private LocalDate dataInicio;
-    private LocalDate dataFim;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
+    private BigDecimal valorLocacaoConsole;
+
+    @Transient
+    private CalculadoraValorLocacao calculadoraValorLocacao;
 
     public Long getId() {
         return id;
@@ -43,19 +51,35 @@ public class UtilizacaoDoConsolePeloCliente {
         this.console = console;
     }
 
-    public LocalDate getDataInicio() {
+    public LocalDateTime getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDate dataInicio) {
+    public void setDataInicio(LocalDateTime dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDate getDataFim() {
+    public LocalDateTime getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(LocalDate dataFim) {
+    public void setDataFim(LocalDateTime dataFim) {
         this.dataFim = dataFim;
+    }
+
+    public void setCalculadoraValorLocacao(CalculadoraValorLocacao calculadoraValorLocacao) {
+        this.calculadoraValorLocacao = calculadoraValorLocacao;
+    }
+
+    public BigDecimal getValorLocacaoConsole() {
+        return valorLocacaoConsole;
+    }
+
+    public void setValorLocacaoConsole(BigDecimal valorLocacaoConsole) {
+        this.valorLocacaoConsole = valorLocacaoConsole;
+    }
+
+    public BigDecimal calcularValorLocacao() {
+        return calculadoraValorLocacao.calcularValorLocacao(console, dataInicio, dataFim);
     }
 }

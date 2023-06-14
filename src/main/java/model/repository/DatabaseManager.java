@@ -23,26 +23,27 @@ public class DatabaseManager {
         return entityManagerFactory.createEntityManager();
     }
 
-    public void persist(Object object) {
-        EntityManager entityManager = null;
-        EntityTransaction transaction = null;
-
-        try {
-            entityManager = getEntityManager();
-            transaction = entityManager.getTransaction();
-            transaction.begin();
-
-            entityManager.persist(object);
-
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
+    public void closeEntityManager(EntityManager entityManager) {
+        if (entityManager != null) {
+            entityManager.close();
         }
+    }
+
+    public void beginTransaction(EntityManager entityManager) {
+        entityManager.getTransaction().begin();
+    }
+
+    public void commitTransaction(EntityManager entityManager) {
+        entityManager.getTransaction().commit();
+    }
+
+    public void rollbackTransaction(EntityManager entityManager) {
+        if (entityManager.getTransaction().isActive()) {
+            entityManager.getTransaction().rollback();
+        }
+    }
+
+    public void persist(Object object, EntityManager entityManager) {
+        entityManager.persist(object);
     }
 }
